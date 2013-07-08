@@ -1,0 +1,6 @@
+{% set host= site.configs.host or 'fartodo.com' %}
+{% if request.host in [host, 'www.'+host]%}
+    {% include "todo_index.html" %}
+{% else %}
+    {% include "blog_index.html" %}
+{% endif %}
