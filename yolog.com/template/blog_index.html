@@ -1,0 +1,29 @@
+{% extends "blog_base.html"%}
+
+{% block content%}
+	<section id="posts" class="content_container">
+		{% for post in posts %}
+		{% set content = post.content|limit(150)  %}
+		<article>
+			<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+			<div class="content">
+				{{ content }}
+			</div>
+		</article>
+		{% endfor %}
+
+        {% if paginator.has_previous or  paginator.has_next %}
+            <nav class="goto_archive">
+                {% if paginator.has_previous %}
+                    <a class="pre" href="{{ paginator.previous_page_url }}">上一页</a>
+                {% endif %}
+                {% if paginator.has_next %}
+                    <a class="next" href="{{ paginator.next_page_url}}">下一页</a>
+                {% endif %}
+            </nav>
+        {% endif %}
+
+	</section>
+
+{% endblock %}
+

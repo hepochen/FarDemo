@@ -1,0 +1,9 @@
+{% set domain = site.configs.host or 'yolog.com' %}
+{% set domains = [domain, 'www.'+domain]%}
+
+{% if request.host in domains %}
+    {% include "service_index.html"%}
+{% else %}
+    {% include "blog_index.html"%}
+{% endif %}
+{# this index.html is for yolog.com#}

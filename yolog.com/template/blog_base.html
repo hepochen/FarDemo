@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/template/blog-style.css">
+	<title>{%block title%}{{ site.title }}{%endblock%}</title>
+</head>
+<body>
+	<header id="sidebar">
+		<figure id="avatar">
+			<a href="/">
+				<div class="pulse animate">&nbsp;</div>
+				<img class="logo" src="{{ site.avatar }}" alt="{{ site.title }}">
+			</a>
+		</figure>
+			<h1><a href="/">{{ site.title }}</a></h1>
+		<p class="description">{{ site.description }}</p>
+			<ul>
+			{% if has('about.md') %}
+				<li><a href="/about.md">About</a></li>
+			{% endif %}
+			{% if has('links.md') %}
+				<li><a href="/links.md">Links</a></li>
+			{% endif %}
+			</ul>
+	</header>
+
+    {% block content%}
+    {% endblock %}
+
+    <section id="footer">
+        &copy; 2013 {{ site.title }}
+        | Theme from <a href="http://sync.sh" target="_blank">YCF</a>
+        | Inspired by <a href="https://svbtle.com/" target="_blank">Svbtle</a>
+        | Powered by <a href="http://farbox.com" target="_blank">FarBox</a>
+        | <a href="/template" target="_blank">Clone Theme</a></section>
+</body>
+</html>

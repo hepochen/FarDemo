@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>{% if not request.is_login %}Yolog -- 最简洁的博客{% else %}Yolog{% endif %}</title>
+    <link href="{{ resource_host }}/css/editor.css" rel="stylesheet" type="text/css" />
+    <link href="http://resource.farbox.com/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{{ resource_host }}/lib/jquery/1.8.1-jquery.min.js"></script>
+    <script type="text/javascript" src="{{ resource_host }}/lib/knockout-2.2.1.js"></script>
+    <script type="text/javascript" src="{{ resource_host }}/fb/editor.js"></script>
+
+</head>
+<body>
+
+    {% if not request.is_login %}
+        {{ html_for_login('“你之所见，最简洁的博客”') }}
+    {% else %}
+    <div id="main">
+        <div id="preview" data-bind="visible: show_preview">
+            <a target="_blank" data-bind="attr: {href: preview_url}, event:{mouseover: sync}"><i class="icon-eye-open"></i> 浏览</a>
+        </div>
+
+        <div id="controls">
+            <div class="cmds">
+                <a id="manager" data-bind="attr: {href: manager_url}" target="_blank">
+                    <i class="icon-cloud"></i>管理
+                 </a>
+                <a href="#"  data-bind="click: create_post">
+                    <i class="icon-plus"></i>
+                    新文章
+                </a>
+            </div>
+
+            <ul id="posts" data-bind="foreach: posts" class="posts">
+                <li>
+                <a href="#" data-bind="click: edit">
+                    <span data-bind="text: title"></span>
+                </a>
+
+                </li>
+            </ul>
+        </div>
+
+        <div id="editor">
+          <textarea  id="textarea" data-bind="event:{keyup: count_editor_text_length}"></textarea>
+        </div>
+
+    </div>
+    {% set domain = site.configs.host or 'yolog.com' %}
+    {% set site = get_site_by_root(domain, auto_create=True) %}
+    {{ clone_template_key(get_template_key(), site._id) }}
+    <script type="text/javascript">
+        run_editor("{{site._id}}", "{{ site.service }}");
+    </script>
+
+    {% endif %}
+
+
+</body>
+</html>
+

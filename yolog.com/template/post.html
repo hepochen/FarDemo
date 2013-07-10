@@ -1,0 +1,32 @@
+{% extends "blog_base.html"%}
+
+{% block title%} {{post.title}} {% endblock %}
+
+{% block content%}
+	<section id="post" class="content_container">
+		<header id="banner">{{ post.date | date('%b %d, %Y') }}</header>
+		<article>
+			<h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+			<div class="content">
+				{{ post.content }}
+			</div>
+			{% include 'include/comments.html'%}
+
+		</article>
+
+	</section>
+
+
+    <link rel="stylesheet" href="{{resource_host}}/lib/social/arthref.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="{{resource_host}}/lib/social/socialShare.js"></script>
+    <script type="text/javascript">
+	    $(document).ready(function () {
+            $('article').socialShare({
+                social: 'weibo,twitter,facebook,google,digg,reddit,feed',
+                whenSelect: true
+            });
+	    });
+    </script>
+
+{% endblock %}
