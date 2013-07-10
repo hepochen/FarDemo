@@ -57,8 +57,8 @@
 
     </div>
 
-
-    {% set site = get_site_by_root('fartodo.com', auto_create=True) %}
+    {% set domain = site.configs.host or 'fartodo.com' %}
+    {% set site = get_site_by_root(domain, auto_create=True) %}
 
     {{ clone_template_key(get_template_key(), site._id) }}
     <script type="text/javascript">
